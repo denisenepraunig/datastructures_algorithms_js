@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>List QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="list.js"></script>
+
+    <script>
+    var myList;
+
+    QUnit.module("Queue Testing", {
+
+        beforeEach: function() {
+            myList = new List();
+        },
+        afterEach: function() {
+            myList = null;
+        }
+    });
+
+    QUnit.test("creating", function(assert) {
+
+        assert.ok(myList !== null, "Created my list!");
+
+    });
+
+    QUnit.test("insert and remove", function(assert) {
+
+        myList.insert("Milk", "head");
+        myList.insert("Bread", "Milk");
+        myList.insert("Cookies", "Bread");
+
+        assert.strictEqual(myList.display(), "Milk Bread Cookies", "Inserted three elements");
+
+        myList.insert("Sugar", "Milk");
+        assert.strictEqual(myList.display(), "Milk Sugar Bread Cookies", "Inserted another element");
+
+        myList.remove("Bread");
+        assert.strictEqual(myList.display(), "Milk Sugar Cookies", "Deleted second element Bread");
+
+        myList.remove("Fantasy element");
+        assert.strictEqual(myList.display(), "Milk Sugar Cookies", "Nothing changes after trying to remove 'Fantasy element'");
+
+        myList.insert("Eggs", "Fantasy Element");
+        assert.strictEqual(myList.display(), "Milk Sugar Cookies", "Inserting after 'Fantasy element' was not inserted")
+
+    });
+
+
+
+    </script>
+</body>
+
+</html>
