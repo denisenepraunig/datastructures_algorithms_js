@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>ADT QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="adt.js"></script>
+
+    <script>
+    var myList;
+
+    QUnit.module("List Testing", {
+
+        beforeEach: function() {
+            myList = new List();
+        },
+        afterEach: function() {
+            myList = null;
+        }
+    });
+
+    QUnit.test("creating", function(assert) {
+
+        assert.ok(myList !== null, "Created my list!");
+
+    });
+
+    QUnit.test("List operations", function(assert) {
+
+        myList.append("Kirk");
+
+        assert.strictEqual(myList.getLength(), 1, "One element in the list");
+
+        myList.append("Spock");
+        myList.append("McCoy");
+        myList.append("Scott");
+        myList.append("Sulu");
+        myList.append("Uhura");
+        myList.append("Chekov");
+        assert.strictEqual(myList.getLength(), 7, "Now seven elements in the list");
+        assert.strictEqual(myList.getPos(), 0, "Position should be at 0");
+
+        myList.end();
+        assert.strictEqual(myList.getPos(), 6, "Position should be at the end after calling end - which is six");
+
+        myList.next();
+        assert.strictEqual(myList.getPos(), 6, "Position should stay at six after calling next");
+
+        myList.moveTo(3);
+        assert.strictEqual(myList.getPos(), 3, "Position should have moved to three");
+
+        myList.front();
+        assert.strictEqual(myList.getPos(), 0, "Position should be at zero after calling front");
+
+        myList.next();
+        assert.strictEqual(myList.getPos(), 1, "Position should be at one after calling next");
+
+        myList.prev();
+        assert.strictEqual(myList.getPos(), 0, "Position should be at zero again after calling prev");
+
+        myList.prev();
+        assert.strictEqual(myList.getPos(), 0, "Position should stay at zero after calling prev again.")
+        assert.strictEqual(myList.getElement(), "Kirk", "I should get the element Kirk at postion 0");
+        assert.strictEqual(myList.find("Kirk"), 0, "Found Kirk at the position 0");
+        assert.strictEqual(myList.find("Sheldon"), -1, "There is no Sheldon at any position");
+        assert.strictEqual(myList.contains("Spock"), true, "Spock is in the list");
+        assert.strictEqual(myList.contains("Penny"), false, "There is no Penny in our list");
+
+        myList.remove("Chekov");
+        assert.strictEqual(myList.getLength(), 6, "After removing an element there are only 6 people left");
+        assert.strictEqual(myList.iterate(), 6, "The list iterated over 6 people");
+
+        myList.append("Chekov");
+        assert.strictEqual(myList.iterateBackwards(), 7, "The list iterated backwards over 7 people after adding Chekov");
+
+        var aOtherPeople = ["Chapel", "Rand"];
+        myList.appendArray(aOtherPeople);
+        assert.strictEqual(myList.getLength(), 9, "After adding an array of two people we have 9 people");
+
+        myList.clear();
+        assert.strictEqual(myList.getLength(), 0, "There is nothing left after clear");
+        assert.strictEqual(myList.getPos(), 0, "Position points to zero");
+        assert.strictEqual(myList.getElement(), undefined, "There is nothing in our list");
+
+    });
+    </script>
+</body>
+
+</html>
