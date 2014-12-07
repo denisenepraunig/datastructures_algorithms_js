@@ -27,32 +27,32 @@
         }
     });
 
-   QUnit.test("creating", function(assert) {
+    QUnit.test("creating", function(assert) {
 
         assert.ok(myQueue !== null, "Created my queue!");
 
     });
 
-   QUnit.test("Queue operations", function(assert) {
+    QUnit.test("Queue operations", function(assert) {
 
-    assert.strictEqual(myQueue.getLength(), 0, "Empty queue has a length of 0");
-    
-    myQueue.enqueue("Kirk");
-  assert.strictEqual(myQueue.getLength(), 1, "After enqueue list has now 1 entry");
+        assert.strictEqual(myQueue.getLength(), 0, "Empty queue has a length of 0");
 
-    myQueue.enqueue("Spock");
-    myQueue.enqueue("McCoy");
-    myQueue.enqueue("Scott");
-    myQueue.enqueue("Sulu");
-    assert.strictEqual(myQueue.getLength(), 5, "In sum we have now 5 elements");
-    assert.strictEqual(myQueue.front(), "Kirk", "First element is Kirk");
-    assert.strictEqual(myQueue.end(), "Sulu", "Last element is Sulu");
-    assert.strictEqual(myQueue.dequeue(), "Kirk", "Removed Kirk from the list");
-    assert.strictEqual(myQueue.getLength(), 4, "Now only 4 elements left");
+        myQueue.enqueue("Kirk");
+        assert.strictEqual(myQueue.getLength(), 1, "After enqueue list has now 1 entry");
+
+        myQueue.enqueue("Spock");
+        myQueue.enqueue("McCoy");
+        myQueue.enqueue("Scott");
+        myQueue.enqueue("Sulu");
+        assert.strictEqual(myQueue.getLength(), 5, "In sum we have now 5 elements");
+        assert.strictEqual(myQueue.front(), "Kirk", "First element is Kirk");
+        assert.strictEqual(myQueue.end(), "Sulu", "Last element is Sulu");
+        assert.strictEqual(myQueue.dequeue(), "Kirk", "Removed Kirk from the list");
+        assert.strictEqual(myQueue.getLength(), 4, "Now only 4 elements left");
 
     });
 
-      QUnit.test("clear and empty", function(assert) {
+    QUnit.test("clear and empty", function(assert) {
 
         assert.strictEqual(myQueue.isEmpty(), true, "An empty queue is empty");
 
@@ -68,20 +68,19 @@
 
         myQueue.enqueue("Spock");
         assert.strictEqual(myQueue.getLength(), 1, "enqueue still works after clearing list");
-        assert.strictEqual(myQueue.dequeue(), "Spock", "And Spock was successfully returend"); 
+        assert.strictEqual(myQueue.dequeue(), "Spock", "And Spock was successfully returend");
 
     });
 
-         QUnit.test("toString", function(assert) {
+    QUnit.test("toString", function(assert) {
 
-           myQueue.enqueue("Kirk");
+        myQueue.enqueue("Kirk");
         myQueue.enqueue("Spock");
         myQueue.enqueue("McCoy");
 
         assert.strictEqual(myQueue.toString(), "Kirk Spock McCoy", "toString successfull");
 
     });
-
     </script>
 </body>
 
