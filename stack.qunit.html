@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Stack QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="stack.js"></script>
+
+    <script>
+    var myStack;
+
+    QUnit.module("Stack Testing", {
+
+        beforeEach: function() {
+            myStack = new Stack();
+        },
+        afterEach: function() {
+            myStack = null;
+        }
+    });
+
+   QUnit.test("creating", function(assert) {
+
+        assert.ok(myStack !== null, "Created my stack!");
+
+    });
+
+   QUnit.test("push, peek, pop, clear", function(assert) {
+
+        myStack.push("Kirk");
+        myStack.push("Spock");
+        myStack.push("McCoy");
+
+        assert.strictEqual(myStack.getLength(), 3, "Three elements on stack");
+
+        assert.strictEqual(myStack.peek(), "McCoy", "McCoy is the last element on the stack");
+
+        assert.strictEqual(myStack.pop(), "McCoy", "McCoy poped from the stack");
+
+        assert.strictEqual(myStack.getLength(), 2, "Only two elements left");
+
+        myStack.clear();
+
+        assert.strictEqual(myStack.pop(), undefined, "Nothing is on the stack to pop after clearing");
+
+        assert.strictEqual(myStack.getLength(), 0, "There are no elements on the stack");
+
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+
+        assert.strictEqual(myStack.getLength(), 0, "Still no elements after continious popping");
+        assert.strictEqual(myStack.peek(), undefined, "There is nothing to peek at all");
+
+
+    });
+    </script>
+</body>
+
+</html>
