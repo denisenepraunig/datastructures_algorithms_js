@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Queue QUnit</title>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-1.16.0.css">
+    <script src="https://code.jquery.com/qunit/qunit-1.16.0.js"></script>
+</head>
+
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+
+    <script src="queue.js"></script>
+
+    <script>
+    var myQueue;
+
+    QUnit.module("Queue Testing", {
+
+        beforeEach: function() {
+            myQueue = new Queue();
+        },
+        afterEach: function() {
+            myQueue = null;
+        }
+    });
+
+   QUnit.test("creating", function(assert) {
+
+        assert.ok(myQueue !== null, "Created my queue!");
+
+    });
+
+   QUnit.test("Queue operations", function(assert) {
+
+    assert.strictEqual(myQueue.getLength(), 0, "Empty queue has a length of 0");
+    
+    myQueue.enqueue("Kirk");
+  assert.strictEqual(myQueue.getLength(), 1, "After enqueue list has now 1 entry");
+
+    myQueue.enqueue("Spock");
+    myQueue.enqueue("McCoy");
+    myQueue.enqueue("Scott");
+    myQueue.enqueue("Sulu");
+    assert.strictEqual(myQueue.getLength(), 5, "In sum we have now 5 elements");
+    assert.strictEqual(myQueue.front(), "Kirk", "First element is Kirk");
+    assert.strictEqual(myQueue.end(), "Sulu", "Last element is Sulu");
+    assert.strictEqual(myQueue.dequeue(), "Kirk", "Removed Kirk from the list");
+    assert.strictEqual(myQueue.getLength(), 4, "Now only 4 elements left");
+
+    });
+
+      QUnit.test("clear and empty", function(assert) {
+
+        assert.strictEqual(myQueue.isEmpty(), true, "An empty queue is empty");
+
+        myQueue.enqueue("Kirk");
+        assert.strictEqual(myQueue.isEmpty(), false, "After enqueue queue is not empty anymore");
+
+        myQueue.clear();
+        assert.strictEqual(myQueue.isEmpty(), true, "A cleared queue is empty");
+        assert.strictEqual(myQueue.getLength(), 0, "A cleared queue has 0 elements");
+        assert.strictEqual(myQueue.front(), undefined, "There is undefined at the front");
+        assert.strictEqual(myQueue.end(), undefined, "There is undefined at the end");
+        assert.strictEqual(myQueue.dequeue(), undefined, "There is undefined dequeued");
+
+        myQueue.enqueue("Spock");
+        assert.strictEqual(myQueue.getLength(), 1, "enqueue still works after clearing list");
+        assert.strictEqual(myQueue.dequeue(), "Spock", "And Spock was successfully returend"); 
+
+    });
+
+         QUnit.test("toString", function(assert) {
+
+           myQueue.enqueue("Kirk");
+        myQueue.enqueue("Spock");
+        myQueue.enqueue("McCoy");
+
+        assert.strictEqual(myQueue.toString(), "Kirk Spock McCoy", "toString successfull");
+
+    });
+
+    </script>
+</body>
+
+</html>

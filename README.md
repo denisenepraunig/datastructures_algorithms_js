@@ -29,4 +29,13 @@ Whith a stack you only operate with the last element of a stack. A stack can be 
 - clear - clears the stack
 - getLength - get the number of elements in the stack
 
+### Queue - queue.js
+A queue is a data structure where data is inserted at the end and removed from the front. It is the FIFO principle: first-in, first-out. It can be sued as a print spooler or people standing in the line at the supermarket. Basic queue operations are:
+- enqueue - inserts an element at the end of the queue
+- dequeue - removes the first element of the queue
+- front - look at the value of the first element (without removing)
+- end - look at the value of the last element (without removing)
+- clear - clears the whole queue
+- isEmpty - is the queue empty
+
 
