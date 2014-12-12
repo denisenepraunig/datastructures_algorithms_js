@@ -7,6 +7,7 @@
  */
 
 function Node(element) {
+    
     this.element = element;
     this.next = null;
 }
@@ -29,8 +30,8 @@ List.prototype._findPrevious = function _findPrevious(item) {
 
     var currNode = this._head;
     while (currNode &&
-    		!(currNode.next === null) &&
-        	currNode.next.element !== item) {
+        !(currNode.next === null) &&
+        currNode.next.element !== item) {
         currNode = currNode.next;
     }
     return currNode;
@@ -40,27 +41,27 @@ List.prototype.insert = function insert(newElement, item) {
 
     var newNode = new Node(newElement);
     var current = this._find(item);
-    
+
     // only if item exists in the list
-    if(current) {
- 		newNode.next = current.next;
-    	current.next = newNode;   	
+    if (current) {
+        newNode.next = current.next;
+        current.next = newNode;
     }
 
 };
 
 List.prototype.remove = function remove(item) {
 
-	var prevNode = this._findPrevious(item);
+    var prevNode = this._findPrevious(item);
 
-	if (!(prevNode.next === null)) {
+    if (!(prevNode.next === null)) {
 
-		// next.next is to skip the item we want to remove
-		prevNode.next = prevNode.next.next;
-	}
+        // next.next is to skip the item we want to remove
+        prevNode.next = prevNode.next.next;
+    }
 };
 
-List.prototype.display = function display(element) {
+List.prototype.display = function display() {
 
     var sReturn = "",
         currNode = this._head;

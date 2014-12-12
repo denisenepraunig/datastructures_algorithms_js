@@ -12,7 +12,7 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
 
-    <script src="list.js"></script>
+    <script src="doublelinkedlist.js"></script>
 
     <script>
     var myList;
@@ -20,7 +20,7 @@
     QUnit.module("Queue Testing", {
 
         beforeEach: function() {
-            myList = new List();
+            myList = new DoubleLinkedList();
         },
         afterEach: function() {
             myList = null;
@@ -40,7 +40,9 @@
         myList.insert("Cookies", "Bread");
 
         assert.strictEqual(myList.display(), "Milk Bread Cookies", "Inserted three elements");
+        assert.strictEqual(myList.displayReverse(), "Cookies Bread Milk", "The three elements in reverse order");
 
+        /*
         myList.insert("Sugar", "Milk");
         assert.strictEqual(myList.display(), "Milk Sugar Bread Cookies", "Inserted another element");
 
@@ -52,6 +54,7 @@
 
         myList.insert("Eggs", "Fantasy Element");
         assert.strictEqual(myList.display(), "Milk Sugar Cookies", "Inserting after 'Fantasy element' was not inserted")
+        */
 
     });
     </script>
