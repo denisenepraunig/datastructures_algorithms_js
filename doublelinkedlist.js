@@ -18,6 +18,12 @@ function DoubleLinkedList() {
 	this._head = new Node("head");
 }
 
+/**
+ * Finds a Node in the list
+ * 
+ * @param  {String} item the node which to look for
+ * @return {Node}      returns Node or null
+ */
 DoubleLinkedList.prototype._find = function find(item) {
 
 	var currNode = this._head;
@@ -30,7 +36,7 @@ DoubleLinkedList.prototype._find = function find(item) {
 DoubleLinkedList.prototype._findLast = function find() {
 
 	var currNode = this._head;
-	while (currNode.next !== null) {
+	while (!(currNode.next === null)) {
 		currNode = currNode.next;
 	}
 	return currNode;
@@ -49,23 +55,44 @@ DoubleLinkedList.prototype._findPrevious = function _findPrevious(item) {
 
 DoubleLinkedList.prototype.insert = function insert(newElement, item) {
 
-	var newNode = new Node(newElement);
 	var current = this._find(item);
+	
+	// if we didn't find the element, current is null
+	if (current === null) return;
 
-	// only if item exists in the DoubleLinkedlist
-	if (current) {
-		newNode.next = current.next;
-		newNode.previous = current;
-		current.next = newNode;
+	var newNode = new Node(newElement);
+
+	newNode.next = current.next;
+	newNode.previous = current;
+	
+	// this condition is true when the new node is not inserted
+	// at the end of the list
+	if (current.next) {
+		current.next.previous = newNode;
 	}
 
+	current.next = newNode;
+	/*
+	newNode.next = current.next;
+   	newNode.previous = current;
+   	current.next = newNode;
+	*/
 };
 
 DoubleLinkedList.prototype.remove = function remove(item) {
 
 	var currNode = this._find(item);
 
-	if (currNode.next !== null) {
+	// if the we didn't find the element it points to null
+	if (currNode === null ) return;
+
+	currNode.previous.next = currNode.next;
+	currNode.next.previous = currNode.previous;
+
+	currNode.next = null;
+	currNode.previous = null;
+	/*
+	if (!(currNode.next === null)) {
 
 		currNode.previous.next = currNode.next;
 		currNode.next.previous = currNode.previous;
@@ -73,6 +100,7 @@ DoubleLinkedList.prototype.remove = function remove(item) {
 		currNode.next = null;
 		currNode.previous = null;
 	}
+	*/
 
 };
 
@@ -83,12 +111,13 @@ DoubleLinkedList.prototype.display = function display() {
 
 	var i = 0;
 
-	while (currNode.next !== null) {
+	while (!(currNode.next === null)) {
 
 		sReturn += currNode.next.element + " ";
 
 		console.log(currNode.next.element);
 		currNode = currNode.next;
+
 		i++;
 		if (i > 10) break;
 	}
