@@ -72,11 +72,7 @@ DoubleLinkedList.prototype.insert = function insert(newElement, item) {
 	}
 
 	current.next = newNode;
-	/*
-	newNode.next = current.next;
-   	newNode.previous = current;
-   	current.next = newNode;
-	*/
+
 };
 
 DoubleLinkedList.prototype.remove = function remove(item) {
@@ -91,16 +87,6 @@ DoubleLinkedList.prototype.remove = function remove(item) {
 
 	currNode.next = null;
 	currNode.previous = null;
-	/*
-	if (!(currNode.next === null)) {
-
-		currNode.previous.next = currNode.next;
-		currNode.next.previous = currNode.previous;
-
-		currNode.next = null;
-		currNode.previous = null;
-	}
-	*/
 
 };
 
@@ -111,6 +97,8 @@ DoubleLinkedList.prototype.display = function display() {
 
 	var i = 0;
 
+	if (currNode === null) return;
+
 	while (!(currNode.next === null)) {
 
 		sReturn += currNode.next.element + " ";
@@ -118,8 +106,13 @@ DoubleLinkedList.prototype.display = function display() {
 		console.log(currNode.next.element);
 		currNode = currNode.next;
 
+		// TODO - safety net to prevent endless loops
+		// due to faulty implementations
 		i++;
-		if (i > 10) break;
+		if (i > 50) {
+			console.log("ATTENTION!!! - display");
+			break;
+		}
 	}
 
 	sReturn = sReturn.trim();
@@ -134,6 +127,8 @@ DoubleLinkedList.prototype.displayReverse = function display() {
 
 	var i = 0;
 
+	if (currNode === null) return;
+
 	while (currNode.previous !== null) {
 
 		sReturn += currNode.element + " ";
@@ -141,8 +136,13 @@ DoubleLinkedList.prototype.displayReverse = function display() {
 		console.log(currNode.element);
 		currNode = currNode.previous;
 
+		// TODO - safety net to prevent endless loops
+		// due to faulty implementations
 		i++;
-		if (i > 10) break;
+		if (i > 50) {
+			console.log("ATTENTION!!! - display");
+			break;
+		}
 	}
 
 	sReturn = sReturn.trim();
